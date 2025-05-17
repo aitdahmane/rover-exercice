@@ -2,7 +2,11 @@ package com.nasa.rover.model.impl;
 
 import com.nasa.rover.model.IPosition;
 
-/** Represents a position on the Mars plateau with x, y coordinates. */
+/**
+ * Represents a position on the Mars plateau with x, y coordinates.
+ * This class implements the IPosition interface and provides
+ * basic position functionality for the Mars Rover application.
+ */
 public class Position implements IPosition {
   private int x;
   private int y;
@@ -46,5 +50,18 @@ public class Position implements IPosition {
   @Override
   public int hashCode() {
     return 31 * x + y;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
+
+    Position other = (Position) obj;
+    return x == other.x && y == other.y;
   }
 }

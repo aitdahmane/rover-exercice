@@ -2,13 +2,13 @@ package com.nasa.rover.model.impl;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import com.nasa.rover.model.IDirection;
 import com.nasa.rover.model.IPlateau;
 import com.nasa.rover.model.IPosition;
 import com.nasa.rover.model.IRover;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 
 /** Unit tests for the Rover. */
 public class RoverTest {

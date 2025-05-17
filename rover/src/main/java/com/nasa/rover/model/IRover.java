@@ -29,4 +29,11 @@ public interface IRover {
    * @return true if the movement was successful, false otherwise
    */
   boolean moveForward(IPlateau plateau);
+
+  /**
+   * Gets a string representation of the rover's position and direction.
+   *
+   * @return a string in the format "x y direction"
+   */
+  String getPositionReport();
 }

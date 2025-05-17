@@ -3,9 +3,8 @@ package com.nasa.rover.model.impl;
 import com.nasa.rover.model.IPosition;
 
 /**
- * Represents a position on the Mars plateau with x, y coordinates.
- * This class implements the IPosition interface and provides
- * basic position functionality for the Mars Rover application.
+ * Represents a position on the Mars plateau with x, y coordinates. This class implements the
+ * IPosition interface and provides basic position functionality for the Mars Rover application.
  */
 public class Position implements IPosition {
   private int x;

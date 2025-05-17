@@ -1,4 +1,4 @@
-package com.nasa.rover.model;
+package com.nasa.rover.model.impl;
 
 import static org.junit.jupiter.api.Assertions.*;
 

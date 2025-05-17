@@ -1,4 +1,4 @@
-package com.nasa.rover.service;
+package com.nasa.rover.service.impl;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,6 +11,7 @@ import com.nasa.rover.model.impl.Direction;
 import com.nasa.rover.model.impl.Plateau;
 import com.nasa.rover.model.impl.Position;
 import com.nasa.rover.model.impl.Rover;
+import com.nasa.rover.service.IRoverControlService;
 
 /** Unit tests for the RoverControlService implementation. */
 public class RoverControlServiceTest {

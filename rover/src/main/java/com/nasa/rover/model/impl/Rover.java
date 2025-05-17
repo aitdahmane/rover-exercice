@@ -20,13 +20,15 @@ public class Rover implements IRover {
    * @param direction the initial direction
    */
   public Rover(IPosition position, IDirection direction) {
-    this.position = position;
+    // Création d'une copie défensive pour éviter l'exposition de la représentation interne
+    this.position = new Position(position.getX(), position.getY());
     this.direction = direction;
   }
 
   @Override
   public IPosition getPosition() {
-    return position;
+    // Création d'une copie défensive pour éviter l'exposition de la représentation interne
+    return new Position(position.getX(), position.getY());
   }
 
   @Override
@@ -63,6 +65,11 @@ public class Rover implements IRover {
       case "W":
         newX--;
         break;
+      default:
+        // Dans un cas normal, cela ne devrait jamais arriver car les directions sont limitées à N,
+        // E, S, W
+        // Mais c'est une bonne pratique de toujours avoir un cas par défaut
+        throw new IllegalStateException("Invalid direction value: " + direction.getValue());
     }
 
     // Check if the new position is valid on the plateau
@@ -74,6 +81,7 @@ public class Rover implements IRover {
 
     return false;
   }
+
   @Override
   public String getPositionReport() {
     return position.getX() + " " + position.getY() + " " + direction.getValue();

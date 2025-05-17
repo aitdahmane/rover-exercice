@@ -45,11 +45,10 @@ public enum Direction implements IDirection {
    * @throws IllegalArgumentException if the value doesn't match any direction
    */
   public static Direction fromValue(String value) {
-    for (Direction direction : values()) {
-      if (direction.name().equals(value)) {
-        return direction;
-      }
+    try {
+      return Enum.valueOf(Direction.class, value);
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("Invalid direction: " + value, e);
     }
-    throw new IllegalArgumentException("Invalid direction: " + value);
   }
 }

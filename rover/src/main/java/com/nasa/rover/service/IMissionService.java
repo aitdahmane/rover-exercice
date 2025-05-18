@@ -11,13 +11,4 @@ public interface IMissionService {
    * @throws Exception if an error occurs during mission execution
    */
   String executeMission(String inputFilePath) throws Exception;
-
-  /**
-   * Saves mission results to a file.
-   *
-   * @param outputFilePath path to the output file
-   * @param results results to write to the file
-   * @throws Exception if an error occurs during writing the results
-   */
-  void saveResults(String outputFilePath, String results) throws Exception;
 }

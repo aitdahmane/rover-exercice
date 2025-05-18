@@ -136,77 +136,104 @@ rover-exercice/
 
 ```mermaid
 gitGraph
-    commit id: "chore(init)"
+    commit id: "init"
     branch develop
     checkout develop
-    commit id: "chore(application): Add main application class"
+    commit id: "dev-init"
+
     branch feature/configuration-tools
     checkout feature/configuration-tools
-    commit id: "chore(application): Add main application class"
-    commit id: "chore(pom): Add Maven plugins"
+    commit id: "config"
     checkout develop
     merge feature/configuration-tools
-    commit id: "feat(model): Add interfaces"
+
+    branch feature/architecture-setup
+    checkout feature/architecture-setup
+    commit id: "arch"
+    checkout develop
+    merge feature/architecture-setup
+
     branch feature/position-management
     checkout feature/position-management
-    commit id: "test(position): Write failing test"
-    commit id: "feat(position): Implement Position class"
-    commit id: "refactor(position): Enhance Position class"
+    commit id: "position"
     checkout develop
     merge feature/position-management
+
     branch feature/direction-managment
     checkout feature/direction-managment
-    commit id: "test(direction): Add first tests"
-    commit id: "feat(direction): Implement Direction enum"
-    commit id: "refactor(direction): simplify direction check"
+    commit id: "direction"
     checkout develop
     merge feature/direction-managment
+
     branch feature/plateau-managment
     checkout feature/plateau-managment
-    commit id: "test(plateau): Add unit tests"
-    commit id: "feat(plateau): Implement Plateau class"
+    commit id: "plateau"
     checkout develop
     merge feature/plateau-managment
+
     branch feature/rover-management
     checkout feature/rover-management
-    commit id: "test(rover): Add unit tests"
-    commit id: "feat(rover): Implement Rover class"
+    commit id: "rover"
     checkout develop
     merge feature/rover-management
+
     branch feature/rover-deplacement
     checkout feature/rover-deplacement
-    commit id: "test(rover): Add RoverControlService tests"
-    commit id: "feat(rover): Implement RoverControlService"
-    commit id: "refactor(rover): Improve code readability"
+    commit id: "move"
     checkout develop
     merge feature/rover-deplacement
+
     branch feature/Input-processing
     checkout feature/Input-processing
-    commit id: "test(input): Add unit tests"
-    commit id: "feat(input): Implement InputFileService"
-    commit id: "feat(rover): Add RoverCommand implementation"
+    commit id: "input"
     checkout develop
     merge feature/Input-processing
+
     branch feature/mission-management
     checkout feature/mission-management
-    commit id: "feat(mission): Implement MissionService"
+    commit id: "mission"
     checkout develop
     merge feature/mission-management
+
     branch feature/rover-application
     checkout feature/rover-application
-    commit id: "feat(application): Enhance RoverApplication"
+    commit id: "app"
     checkout develop
     merge feature/rover-application
+
     branch feature/edge-cases
     checkout feature/edge-cases
-    commit id: "feat(tests): Add edge case tests"
+    commit id: "edge"
     checkout develop
     merge feature/edge-cases
+
     branch feature/refactoring-code
     checkout feature/refactoring-code
-    commit id: "feat(application): Refactor application"
+    commit id: "refactor"
     checkout develop
     merge feature/refactoring-code
+
+    checkout main
+    merge develop id: "merge-develop-to-main-v1" type: HIGHLIGHT tag: "1.0.0"
+
+    branch feature/documentation
+    checkout feature/documentation
+    commit id: "docs"
+    checkout develop
+    merge feature/documentation
+
+    checkout main
+    merge develop id: "merge-develop-to-main-v2" type: HIGHLIGHT
+
+    branch hotfix/documentation-bug
+    checkout hotfix/documentation-bug
+    commit id: "fix-docs"
+
+    checkout main
+    merge hotfix/documentation-bug id: "merge-hotfix-to-main" type: REVERSE
+
+    checkout develop
+    merge hotfix/documentation-bug id: "merge-hotfix-to-develop"
 ```
 
 ---

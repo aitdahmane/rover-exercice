@@ -57,5 +57,4 @@ public class PlateauTest {
         () -> new Plateau(5, -1),
         "Creating plateau with negative height should throw IllegalArgumentException");
   }
-
 }

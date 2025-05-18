@@ -1,0 +1,10 @@
+5 5
+0 0 N
+MMMMM
+5 5 W
+MMMMM
+0 5 S
+MMMMM
+5 0 E
+MMMMM
+

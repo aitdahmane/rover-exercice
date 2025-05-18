@@ -20,7 +20,7 @@ import com.nasa.rover.service.impl.InputFileService;
 import com.nasa.rover.service.impl.MissionService;
 import com.nasa.rover.service.impl.RoverControlService;
 
-/** Tests pour l'application RoverApplication utilisant les cas limites. */
+/** Tests for the RoverApplication application using edge cases. */
 public class RoverApplicationTest {
 
   private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -34,11 +34,11 @@ public class RoverApplicationTest {
 
   @BeforeEach
   public void setUp() {
-    // Redirection de la sortie standard pour capturer les messages
+    // Redirect standard output and error to capture messages
     System.setOut(new PrintStream(outContent));
     System.setErr(new PrintStream(errContent));
 
-    // Initialisation des services
+    // Initialize services
     inputFileService = new InputFileService();
     roverControlService = new RoverControlService();
     missionService = new MissionService(inputFileService, roverControlService);
@@ -50,203 +50,202 @@ public class RoverApplicationTest {
     System.setErr(originalErr);
   }
 
-  /** Méthode utilitaire pour obtenir le chemin complet d'un fichier de test */
+  /** Utility method to get the full path of a test file */
   private String getTestFilePath(String fileName) {
     try {
       URL resource = getClass().getClassLoader().getResource("edge-cases/" + fileName);
       if (resource == null) {
-        // Tentative alternative en cas d'échec
+        // Alternative attempt in case of failure
         File file = new File("src/test/resources/edge-cases/" + fileName);
         if (file.exists()) {
           return file.getAbsolutePath();
         }
 
-        // Seconde tentative avec le chemin relatif à target
+        // Second attempt with the path relative to target
         file = new File("target/test-classes/edge-cases/" + fileName);
         if (file.exists()) {
           return file.getAbsolutePath();
         }
 
-        throw new RuntimeException("Fichier de test non trouvé: " + fileName);
+        throw new RuntimeException("Test file not found: " + fileName);
       }
 
-      // Décoder l'URL pour gérer les espaces et caractères spéciaux
+      // Decode the URL to handle spaces and special characters
       String path = URLDecoder.decode(resource.getPath(), StandardCharsets.UTF_8.name());
 
-      // Correction pour les chemins Windows
+      // Correction for Windows paths
       if (path.startsWith("/") && System.getProperty("os.name").toLowerCase().contains("win")) {
         path = path.substring(1);
       }
 
       return path;
     } catch (Exception e) {
-      throw new RuntimeException("Erreur d'accès au fichier de test: " + fileName, e);
+      throw new RuntimeException("Error accessing test file: " + fileName, e);
     }
   }
 
   @Test
   public void testMinimalPlateau() throws Exception {
-    // Test avec un plateau minimal 1x1
+    // Test with a minimal 1x1 plateau
     String result = missionService.executeMission(getTestFilePath("minimal-plateau.txt"));
     assertEquals("0 1 N", result.trim());
   }
 
   @Test
   public void testLargePlateau() throws Exception {
-    // Test avec un grand plateau 100x100
+    // Test with a large 100x100 plateau
     String result = missionService.executeMission(getTestFilePath("large-plateau.txt"));
     assertEquals("49 50 W", result.trim());
   }
 
   @Test
   public void testEdgePositions() throws Exception {
-    // Test avec des rovers aux positions extrêmes du plateau
+    // Test with rovers at extreme positions on the plateau
     String result = missionService.executeMission(getTestFilePath("edge-positions.txt"));
     String[] lines = result.trim().split("\n");
 
-    // Vérifier que les 4 rovers n'ont pas dépassé les limites du plateau
-    assertEquals(4, lines.length, "Il devrait y avoir 4 rovers dans le résultat");
+    // Verify that the 4 rovers have not exceeded the plateau limits
+    assertEquals(4, lines.length, "There should be 4 rovers in the result");
     assertTrue(
         lines[0].matches("\\d+\\s+\\d+\\s+[NESW]"),
-        "Le format de la position du rover 1 est incorrect");
+        "The format of rover 1's position is incorrect");
     assertTrue(
         lines[1].matches("\\d+\\s+\\d+\\s+[NESW]"),
-        "Le format de la position du rover 2 est incorrect");
+        "The format of rover 2's position is incorrect");
     assertTrue(
         lines[2].matches("\\d+\\s+\\d+\\s+[NESW]"),
-        "Le format de la position du rover 3 est incorrect");
+        "The format of rover 3's position is incorrect");
     assertTrue(
         lines[3].matches("\\d+\\s+\\d+\\s+[NESW]"),
-        "Le format de la position du rover 4 est incorrect");
+        "The format of rover 4's position is incorrect");
   }
 
   @Test
   public void testMultipleRovers() throws Exception {
-    // Test avec plusieurs rovers
+    // Test with multiple rovers
     String result = missionService.executeMission(getTestFilePath("multiple-rovers.txt"));
     String[] lines = result.trim().split("\n");
 
-    // Afficher le résultat réel pour le débogage
-    System.out.println("Résultat réel pour multiple-rovers.txt:");
+    // Display the actual result for debugging
+    System.out.println("Actual result for multiple-rovers.txt:");
     for (int i = 0; i < lines.length; i++) {
       System.out.println("Rover " + (i + 1) + ": " + lines[i]);
     }
 
-    // Vérifier que le résultat contient bien 3 rovers
-    assertEquals(3, lines.length, "Il devrait y avoir 3 rovers dans le résultat");
-    assertEquals("1 3 N", lines[0], "La position finale du premier rover est incorrecte");
-    assertEquals("5 1 E", lines[1], "La position finale du deuxième rover est incorrecte");
-    // Ajuster l'assertion pour correspondre au résultat réel
-    assertEquals("1 2 E", lines[2], "La position finale du troisième rover est incorrecte");
+    // Verify that the result contains 3 rovers
+    assertEquals(3, lines.length, "There should be 3 rovers in the result");
+    assertEquals("1 3 N", lines[0], "The final position of the first rover is correct");
+    assertEquals("5 1 E", lines[1], "The final position of the second rover is correct");
+    // Adjust the assertion to match the actual result
+    assertEquals("1 2 E", lines[2], "The final position of the third rover is correct");
   }
 
   @Test
   public void testEmptyFile() {
-    // Test avec un fichier vide
+    // Test with an empty file
     Exception exception =
         assertThrows(
             Exception.class,
             () -> {
               missionService.executeMission(getTestFilePath("empty-file.txt"));
             });
-    // Afficher le message d'erreur réel pour debugging
-    System.out.println("Message d'erreur pour le fichier vide: " + exception.getMessage());
-    // Assertion moins stricte qui vérifie juste que l'exception est bien lancée
-    assertNotNull(exception.getMessage(), "Le message d'erreur ne devrait pas être null");
+    // Display the actual error message for debugging
+    System.out.println("Error message for empty file: " + exception.getMessage());
+    // Less strict assertion that just checks if the exception is thrown
+    assertNotNull(exception.getMessage(), "The error message should not be null");
   }
 
   @Test
   public void testInvalidFormat() {
-    // Test avec un fichier au format invalide
+    // Test with an invalid format file
     Exception exception =
         assertThrows(
             Exception.class,
             () -> {
               missionService.executeMission(getTestFilePath("invalid-format.txt"));
             });
-    // Afficher le message d'erreur réel pour debugging
-    System.out.println("Message d'erreur pour le format invalide: " + exception.getMessage());
-    // Assertion moins stricte qui vérifie juste que l'exception est bien lancée
-    assertNotNull(exception.getMessage(), "Le message d'erreur ne devrait pas être null");
+    // Display the actual error message for debugging
+    System.out.println("Error message for invalid format: " + exception.getMessage());
+    // Less strict assertion that just checks if the exception is thrown
+    assertNotNull(exception.getMessage(), "The error message should not be null");
   }
 
   @Test
   public void testApplicationWithValidFile() {
-    // Test de l'application principale avec un fichier valide
     String[] args = {getTestFilePath("multiple-rovers.txt")};
     RoverApplication.main(args);
 
-    // Vérifier que la sortie contient les positions finales attendues
+    // Verify that the output contains the expected final positions
     String output = outContent.toString();
-    assertTrue(output.contains("1 3 N"), "La sortie devrait contenir la position du premier rover");
     assertTrue(
-        output.contains("5 1 E"), "La sortie devrait contenir la position du deuxième rover");
+        output.contains("1 3 N"), "The output should contain the position of the first rover");
     assertTrue(
-        output.contains("1 2 E"), "La sortie devrait contenir la position du troisième rover");
+        output.contains("5 1 E"), "The output should contain the position of the second rover");
+    assertTrue(
+        output.contains("1 2 E"), "The output should contain the position of the third rover");
   }
 
   @Test
   public void testApplicationWithoutArgs() {
-    // Test de l'application sans arguments
+    // Test the application without arguments
     try {
       String[] args = {};
-      // Utiliser une classe wrapper pour éviter System.exit() qui arrête les tests
+      // Use a wrapper class to prevent System.exit() from stopping tests
       SecurityManager originalManager = System.getSecurityManager();
       System.setSecurityManager(new NoExitSecurityManager());
       try {
         RoverApplication.main(args);
       } catch (ExitException e) {
-        // Attendu : exit code 1
-        assertEquals(1, e.getStatus(), "Le code de sortie devrait être 1");
+        // Expected: exit code 1
+        assertEquals(1, e.getStatus(), "The exit code should be 1");
       } finally {
         System.setSecurityManager(originalManager);
       }
 
-      // Vérifier que le message d'erreur approprié est affiché
+      // Verify that the appropriate error message is displayed
       String errorOutput = errContent.toString();
       assertTrue(
-          errorOutput.contains("Usage:"),
-          "Le message d'erreur devrait contenir les instructions d'usage");
+          errorOutput.contains("Usage:"), "The error message should contain usage instructions");
     } catch (Exception e) {
-      fail("Exception inattendue: " + e.getMessage());
+      fail("Unexpected exception: " + e.getMessage());
     }
   }
 
   @Test
   public void testApplicationWithInvalidFile() {
-    // Test de l'application avec un fichier invalide
+    // Test the application with an invalid file
     try {
       String[] args = {getTestFilePath("invalid-format.txt")};
-      // Utiliser une classe wrapper pour éviter System.exit() qui arrête les tests
+      // Use a wrapper class to prevent System.exit() from stopping tests
       SecurityManager originalManager = System.getSecurityManager();
       System.setSecurityManager(new NoExitSecurityManager());
       try {
         RoverApplication.main(args);
       } catch (ExitException e) {
-        // Attendu : exit code 1
-        assertEquals(1, e.getStatus(), "Le code de sortie devrait être 1");
+        // Expected: exit code 1
+        assertEquals(1, e.getStatus(), "The exit code should be 1");
       } finally {
         System.setSecurityManager(originalManager);
       }
 
-      // Vérifier que le message d'erreur approprié est affiché
+      // Verify that the appropriate error message is displayed
       String errorOutput = errContent.toString();
-      assertTrue(errorOutput.contains("Erreur"), "Un message d'erreur devrait être affiché");
+      assertTrue(errorOutput.contains("Error"), "An error message should be displayed");
     } catch (Exception e) {
-      fail("Exception inattendue: " + e.getMessage());
+      fail("Unexpected exception: " + e.getMessage());
     }
   }
 
-  // Classes utilitaires pour gérer System.exit() dans les tests
+  // Utility classes to handle System.exit() in tests
   private static class NoExitSecurityManager extends SecurityManager {
     @Override
     public void checkPermission(java.security.Permission perm) {
-      // Autoriser toutes les permissions sauf System.exit()
+      // Allow all permissions except System.exit()
     }
 
     @Override
     public void checkPermission(java.security.Permission perm, Object context) {
-      // Autoriser toutes les permissions sauf System.exit()
+      // Allow all permissions except System.exit()
     }
 
     @Override
@@ -259,7 +258,7 @@ public class RoverApplicationTest {
     private final int status;
 
     public ExitException(int status) {
-      super("System.exit(" + status + ") intercepté");
+      super("System.exit(" + status + ") intercepted");
       this.status = status;
     }
 

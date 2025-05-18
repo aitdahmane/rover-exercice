@@ -1,7 +1,6 @@
 package com.nasa.rover.model.impl;
 
 import com.nasa.rover.model.IPlateau;
-import com.nasa.rover.model.IPosition;
 
 /**
  * Implementation of the Mars plateau. Represents a rectangular grid with dimensions width x height.
@@ -38,15 +37,5 @@ public class Plateau implements IPlateau {
   @Override
   public boolean isValidPosition(int x, int y) {
     return x >= 0 && x <= width && y >= 0 && y <= height;
-  }
-
-  /**
-   * Checks if a position is valid on the plateau.
-   *
-   * @param position the position to check
-   * @return true if the position is valid, false otherwise
-   */
-  public boolean isValidPosition(IPosition position) {
-    return isValidPosition(position.getX(), position.getY());
   }
 }

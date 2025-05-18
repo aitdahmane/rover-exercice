@@ -136,98 +136,104 @@ rover-exercice/
 
 ```mermaid
 gitGraph
-commit id: "init"
-branch develop
-checkout develop
-commit id: "dev-init" message: "chore: Setup development environment"
+    commit id: "init"
+    branch develop
+    checkout develop
+    commit id: "dev-init"
 
-branch feature/configuration-tools
-checkout feature/configuration-tools
-commit id: "config" message: "chore: Add Maven configuration"
-checkout develop
-merge feature/configuration-tools
+    branch feature/configuration-tools
+    checkout feature/configuration-tools
+    commit id: "config"
+    checkout develop
+    merge feature/configuration-tools
 
-branch feature/architecture-setup
-checkout feature/architecture-setup
-commit id: "arch" message: "feat: Add project architecture"
-checkout develop
-merge feature/architecture-setup
+    branch feature/architecture-setup
+    checkout feature/architecture-setup
+    commit id: "arch"
+    checkout develop
+    merge feature/architecture-setup
 
-branch feature/position-management
-checkout feature/position-management
-commit id: "position" message: "feat: Add position management"
-checkout develop
-merge feature/position-management
+    branch feature/position-management
+    checkout feature/position-management
+    commit id: "position"
+    checkout develop
+    merge feature/position-management
 
-branch feature/direction-managment
-checkout feature/direction-managment
-commit id: "direction" message: "feat: Add direction management"
-checkout develop
-merge feature/direction-managment
+    branch feature/direction-managment
+    checkout feature/direction-managment
+    commit id: "direction"
+    checkout develop
+    merge feature/direction-managment
 
-branch feature/plateau-managment
-checkout feature/plateau-managment
-commit id: "plateau" message: "feat: Add plateau management"
-checkout develop
-merge feature/plateau-managment
+    branch feature/plateau-managment
+    checkout feature/plateau-managment
+    commit id: "plateau"
+    checkout develop
+    merge feature/plateau-managment
 
-branch feature/rover-management
-checkout feature/rover-management
-commit id: "rover" message: "feat: Add rover management"
-checkout develop
-merge feature/rover-management
+    branch feature/rover-management
+    checkout feature/rover-management
+    commit id: "rover"
+    checkout develop
+    merge feature/rover-management
 
-branch feature/rover-deplacement
-checkout feature/rover-deplacement
-commit id: "move" message: "feat: Add rover movement"
-checkout develop
-merge feature/rover-deplacement
+    branch feature/rover-deplacement
+    checkout feature/rover-deplacement
+    commit id: "move"
+    checkout develop
+    merge feature/rover-deplacement
 
-branch feature/Input-processing
-checkout feature/Input-processing
-commit id: "input" message: "feat: Add input processing"
-checkout develop
-merge feature/Input-processing
+    branch feature/Input-processing
+    checkout feature/Input-processing
+    commit id: "input"
+    checkout develop
+    merge feature/Input-processing
 
-branch feature/mission-management
-checkout feature/mission-management
-commit id: "mission" message: "feat: Add mission management"
-checkout develop
-merge feature/mission-management
+    branch feature/mission-management
+    checkout feature/mission-management
+    commit id: "mission"
+    checkout develop
+    merge feature/mission-management
 
-branch feature/rover-application
-checkout feature/rover-application
-commit id: "app" message: "feat: Enhance rover application"
-checkout develop
-merge feature/rover-application
+    branch feature/rover-application
+    checkout feature/rover-application
+    commit id: "app"
+    checkout develop
+    merge feature/rover-application
 
-branch feature/edge-cases
-checkout feature/edge-cases
-commit id: "edge" message: "feat: Handle edge cases"
-checkout develop
-merge feature/edge-cases
+    branch feature/edge-cases
+    checkout feature/edge-cases
+    commit id: "edge"
+    checkout develop
+    merge feature/edge-cases
 
-branch feature/refactoring-code
-checkout feature/refactoring-code
-commit id: "refactor" message: "feat: Refactor application"
-checkout develop
-merge feature/refactoring-code
+    branch feature/refactoring-code
+    checkout feature/refactoring-code
+    commit id: "refactor"
+    checkout develop
+    merge feature/refactoring-code
 
-checkout main
-merge develop
+    checkout main
+    merge develop id: "merge-develop-to-main-v1" type: HIGHLIGHT
 
-branch feature/documentation
-checkout feature/documentation
-commit id: "docs" message: "docs: Add documentation"
-checkout develop
-merge feature/documentation
+    branch feature/documentation
+    checkout feature/documentation
+    commit id: "docs"
+    checkout develop
+    merge feature/documentation
 
-checkout main
-merge develop
+    checkout main
+    merge develop id: "merge-develop-to-main-v2" type: HIGHLIGHT
 
-branch hotfix/documentation-bug
-checkout hotfix/documentation-bug
-commit id: "fix-docs" message: "fix: Correct documentation issues"
+    branch hotfix/documentation-bug
+    checkout hotfix/documentation-bug
+    commit id: "fix-docs"
+
+    checkout main
+    merge hotfix/documentation-bug id: "merge-hotfix-to-main" type: REVERSE
+
+    checkout develop
+    merge hotfix/documentation-bug id: "merge-hotfix-to-develop"
 ```
 
 ---

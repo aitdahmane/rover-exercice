@@ -214,7 +214,7 @@ gitGraph
     merge feature/refactoring-code
 
     checkout main
-    merge develop id: "merge-develop-to-main-v1" type: HIGHLIGHT
+    merge develop id: "merge-develop-to-main-v1" type: HIGHLIGHT tag: "1.0.0"
 
     branch feature/documentation
     checkout feature/documentation

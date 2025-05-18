@@ -136,77 +136,98 @@ rover-exercice/
 
 ```mermaid
 gitGraph
-    commit id: "chore(init)"
-    branch develop
-    checkout develop
-    commit id: "chore(application): Add main application class"
-    branch feature/configuration-tools
-    checkout feature/configuration-tools
-    commit id: "chore(application): Add main application class"
-    commit id: "chore(pom): Add Maven plugins"
-    checkout develop
-    merge feature/configuration-tools
-    commit id: "feat(model): Add interfaces"
-    branch feature/position-management
-    checkout feature/position-management
-    commit id: "test(position): Write failing test"
-    commit id: "feat(position): Implement Position class"
-    commit id: "refactor(position): Enhance Position class"
-    checkout develop
-    merge feature/position-management
-    branch feature/direction-managment
-    checkout feature/direction-managment
-    commit id: "test(direction): Add first tests"
-    commit id: "feat(direction): Implement Direction enum"
-    commit id: "refactor(direction): simplify direction check"
-    checkout develop
-    merge feature/direction-managment
-    branch feature/plateau-managment
-    checkout feature/plateau-managment
-    commit id: "test(plateau): Add unit tests"
-    commit id: "feat(plateau): Implement Plateau class"
-    checkout develop
-    merge feature/plateau-managment
-    branch feature/rover-management
-    checkout feature/rover-management
-    commit id: "test(rover): Add unit tests"
-    commit id: "feat(rover): Implement Rover class"
-    checkout develop
-    merge feature/rover-management
-    branch feature/rover-deplacement
-    checkout feature/rover-deplacement
-    commit id: "test(rover): Add RoverControlService tests"
-    commit id: "feat(rover): Implement RoverControlService"
-    commit id: "refactor(rover): Improve code readability"
-    checkout develop
-    merge feature/rover-deplacement
-    branch feature/Input-processing
-    checkout feature/Input-processing
-    commit id: "test(input): Add unit tests"
-    commit id: "feat(input): Implement InputFileService"
-    commit id: "feat(rover): Add RoverCommand implementation"
-    checkout develop
-    merge feature/Input-processing
-    branch feature/mission-management
-    checkout feature/mission-management
-    commit id: "feat(mission): Implement MissionService"
-    checkout develop
-    merge feature/mission-management
-    branch feature/rover-application
-    checkout feature/rover-application
-    commit id: "feat(application): Enhance RoverApplication"
-    checkout develop
-    merge feature/rover-application
-    branch feature/edge-cases
-    checkout feature/edge-cases
-    commit id: "feat(tests): Add edge case tests"
-    checkout develop
-    merge feature/edge-cases
-    branch feature/refactoring-code
-    checkout feature/refactoring-code
-    commit id: "feat(application): Refactor application"
-    checkout develop
-    merge feature/refactoring-code
+commit id: "init"
+branch develop
+checkout develop
+commit id: "dev-init" message: "chore: Setup development environment"
+
+branch feature/configuration-tools
+checkout feature/configuration-tools
+commit id: "config" message: "chore: Add Maven configuration"
+checkout develop
+merge feature/configuration-tools
+
+branch feature/architecture-setup
+checkout feature/architecture-setup
+commit id: "arch" message: "feat: Add project architecture"
+checkout develop
+merge feature/architecture-setup
+
+branch feature/position-management
+checkout feature/position-management
+commit id: "position" message: "feat: Add position management"
+checkout develop
+merge feature/position-management
+
+branch feature/direction-managment
+checkout feature/direction-managment
+commit id: "direction" message: "feat: Add direction management"
+checkout develop
+merge feature/direction-managment
+
+branch feature/plateau-managment
+checkout feature/plateau-managment
+commit id: "plateau" message: "feat: Add plateau management"
+checkout develop
+merge feature/plateau-managment
+
+branch feature/rover-management
+checkout feature/rover-management
+commit id: "rover" message: "feat: Add rover management"
+checkout develop
+merge feature/rover-management
+
+branch feature/rover-deplacement
+checkout feature/rover-deplacement
+commit id: "move" message: "feat: Add rover movement"
+checkout develop
+merge feature/rover-deplacement
+
+branch feature/Input-processing
+checkout feature/Input-processing
+commit id: "input" message: "feat: Add input processing"
+checkout develop
+merge feature/Input-processing
+
+branch feature/mission-management
+checkout feature/mission-management
+commit id: "mission" message: "feat: Add mission management"
+checkout develop
+merge feature/mission-management
+
+branch feature/rover-application
+checkout feature/rover-application
+commit id: "app" message: "feat: Enhance rover application"
+checkout develop
+merge feature/rover-application
+
+branch feature/edge-cases
+checkout feature/edge-cases
+commit id: "edge" message: "feat: Handle edge cases"
+checkout develop
+merge feature/edge-cases
+
+branch feature/refactoring-code
+checkout feature/refactoring-code
+commit id: "refactor" message: "feat: Refactor application"
+checkout develop
+merge feature/refactoring-code
+
+checkout main
+merge develop
+
+branch feature/documentation
+checkout feature/documentation
+commit id: "docs" message: "docs: Add documentation"
+checkout develop
+merge feature/documentation
+
+checkout main
+merge develop
+
+branch hotfix/documentation-bug
+checkout hotfix/documentation-bug
+commit id: "fix-docs" message: "fix: Correct documentation issues"
 ```
 
 ---

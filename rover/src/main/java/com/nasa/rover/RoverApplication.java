@@ -1,5 +1,12 @@
 package com.nasa.rover;
 
+import com.nasa.rover.service.IInputFileService;
+import com.nasa.rover.service.IMissionService;
+import com.nasa.rover.service.IRoverControlService;
+import com.nasa.rover.service.impl.InputFileService;
+import com.nasa.rover.service.impl.MissionService;
+import com.nasa.rover.service.impl.RoverControlService;
+
 /** Classe principale de l'application Rover Mars. Point d'entrée pour l'exécution du programme. */
 public class RoverApplication {
 
@@ -10,11 +17,34 @@ public class RoverApplication {
    *     d'entrée.
    */
   public static void main(String[] args) {
-    System.out.println("Bienvenue dans l'application Mars Rover");
 
-    // TODO: Implémenter la logique de lecture du fichier d'entrée
-    // TODO: Implémenter la logique de traitement des commandes pour les rovers
-    // TODO: Afficher les positions finales des rovers
+    try {
+      // Vérification des arguments de la ligne de commande
+      if (args.length < 1) {
+        System.err.println("Usage: java -jar rover.jar <chemin-du-fichier-d-entree>");
+        System.exit(1);
+      }
 
+      String inputFilePath = args[0];
+
+      // Création des instances de services
+      IInputFileService inputFileService = new InputFileService();
+      IRoverControlService roverControlService = new RoverControlService();
+      IMissionService missionService = new MissionService(inputFileService, roverControlService);
+
+      // Exécution de la mission
+      String result = missionService.executeMission(inputFilePath);
+
+      // Affichage des résultats
+      System.out.println(result);
+
+    } catch (Exception e) {
+      // Gestion des erreurs
+      System.err.println("Erreur lors de l'exécution de la mission: " + e.getMessage());
+      if (e.getCause() != null) {
+        System.err.println("Cause: " + e.getCause().getMessage());
+      }
+      System.exit(1);
+    }
   }
 }

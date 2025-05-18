@@ -26,19 +26,13 @@ public class InputFileService implements IInputFileService {
   @Override
   public IPlateau readPlateauFromFile(String filePath) throws Exception {
     try (BufferedReader reader = new BufferedReader(new FileReader(new File(filePath)))) {
-      String line = reader.readLine();
-
-      if (line == null || line.trim().isEmpty()) {
-        throw new Exception("Input file is empty");
-      }
-
-      if (!PLATEAU_PATTERN.matcher(line).matches()) {
+      String line = reader.readLine(); // Read the first line
+      if (line == null || line.trim().isEmpty()) throw new Exception("Input file is empty");
+      if (!PLATEAU_PATTERN.matcher(line).matches())
         throw new Exception("Invalid plateau format. Expected two integers separated by space");
-      }
-
-      String[] dimensions = line.split("\\s+");
-      int width = Integer.parseInt(dimensions[0]);
-      int height = Integer.parseInt(dimensions[1]);
+      String[] dimensions = line.split("\\s+"); // Split the line into dimensions
+      int width = Integer.parseInt(dimensions[0]); // Parse width
+      int height = Integer.parseInt(dimensions[1]); // Parse height
 
       if (width < 0 || height < 0) {
         throw new Exception("Plateau dimensions cannot be negative");
